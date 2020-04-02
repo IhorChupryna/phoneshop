@@ -26,142 +26,109 @@ console.log(matrixTmp);
 //-------------------------------------------------2-----------------------------------------------------------
 let iphones = [
   {
-    64: {
-      price: 200,
-      color:
+    disc: "64",
+    price: 200,
+    color:
+    {
+      white:
       {
-        white:
-        {
-          pathFile: "img/white64.jpg",
-          coeffPrice: 1
-        },
-        black:
-        {
-          pathFile: "img/black64.jpg",
-          coeffPrice: 1.2
-        }
+        pathFile: "img/white64.jpg",
+        coeffPrice: 1
+      },
+      black:
+      {
+        pathFile: "img/black64.jpg",
+        coeffPrice: 1.2
       }
     }
   },
   {
-    128: {
-      price: 800,
-      color:
+    disc: "128",
+    price: 800,
+    color:
+    {
+      white:
       {
-        white:
-        {
-          pathFile: "img/white128.jpg",
-          coeffPrice: 1
-        },
-        grey:
-        {
-          pathFile: "img/grey128.jpg",
-          coeffPrice: 1.3
-        }
+        pathFile: "img/white128.jpg",
+        coeffPrice: 1
+      },
+      grey:
+      {
+        pathFile: "img/grey128.jpg",
+        coeffPrice: 1.3
       }
     }
+
   },
   {
-    256: {
-      price: 1200,
-      color:
+    disc: "256",
+    price: 1200,
+    color:
+    {
+      white:
       {
-        white:
-        {
-          pathFile: "img/white256.jpg",
-          coeffPrice: 1
-        },
-        black:
-        {
-          pathFile: "img/black256.jpg",
-          coeffPrice: 1.4
-        }
+        pathFile: "img/white256.jpg",
+        coeffPrice: 1
+      },
+      black:
+      {
+        pathFile: "img/black256.jpg",
+        coeffPrice: 1.4
       }
     }
   }
 ];
 
 let disc;
+let color;
 let check = true;
+let currPhone;
+let currPhoneColors = [];
+let currPhonePrice;
+
 while (check) {
+  /*Check and set disc */
   do {
     disc = prompt("Enter phone disc(64/128/256)");
   } while (+disc !== 64 && +disc !== 128 && +disc !== 256 && disc !== null)
+
+  /*Client enter cancel*/
   if (disc === null) {
     check = false;
     break;
   }
 
+  /*Select distanation phone*/    
+  for (let i = 0; i < iphones.length; i++) {
+    if (iphones[i].disc === disc) {
+      currPhone = iphones[i];
+      currPhoneColors = Object.keys(iphones[i].color);
+      break;
+    };
+  }
+
+  /*Selection color*/
+  let check2 = true;
+  while (check2) {
+    color = prompt("Select color phone(" + currPhoneColors + ")");
+    /*Client enter cancel*/
+    if (color === null) {
+      check = false;
+      break;
+    }
+    for (let i = 0; i < currPhoneColors.length; i++) {
+      if (currPhoneColors[i] === color) {
+        check2 = false;
+        break;
+      }
+    }
+  }
+  break;  
 }
 
-
-
-
-
-// for (let i = 0; i < iphones.length; i++) {
-//   console.log(iphones[i]);
-// }
-
-
-// var phone;
-// var color;
-// var phoneDisc;
-// var phoneColor;
-// var filePhone;
-
-// phoneDisc = prompt("Виберіть розмір пам'яті телефону(8G/16G/32G/64G/128G/256G)");
-
-// switch (phoneDisc) {
-//     case "8G":
-//         phone="Iphone_5s";
-//         color="white/black"
-//         document.write(phone+" - 100$");
-//         break;
-//     case "16G":
-//         phone="Iphone_6s";
-//         color="white/grey"
-//         document.write(phone+" - 150$");
-//         break;
-//     case "32G":
-//         phone="Samsung_s6";
-//         color="white/black"
-//         document.write(phone+" - 200$");
-//         break;
-//     case "64G":
-//         phone="Xiaomi_Redme_9";
-//         color="white/blue"
-//         document.write(phone+" - 250$");
-//         break;
-//     case "128G":
-//         phone="Samsung_Note_10";
-//         color="white/black"
-//         document.write(phone+" - 1400$");
-//         break;
-//     case "256G":
-//         phone="Iphone_11_Plus";
-//         color="white/black"
-//         document.write(phone+" - 1200$");
-//         break;
-//     default:
-//         alert("Телефона з таким параметром пам'яті не існує!!!")
-//         break;
-// }
-
-// if(phone != (undefined || null)){
-//     phoneColor = prompt("Виберіть колір телефону "+phone+" ("+color+")");
-//     filePhone=phone+"/"+phoneColor+".jpg";
-
-//       if(phoneColor == "white"){
-//         document.write("<br><img src=\""+filePhone+"\"  height=\"420\" width=\"320\">");
-//       }else if(phoneColor == "black" && phone == ("Iphone_5s"||"Iphone_11_Plus"||"Samsung_s6"||"Samsung_Note_10")){
-//         document.write("<br><img src=\""+filePhone+"\"  height=\"420\" width=\"320\">");
-//       }else if(phoneColor == "grey" && phone == "Iphone_6s"){
-//         document.write("<br><img src=\""+filePhone+"\"  height=\"420\" width=\"320\">");
-//       }else if(phoneColor == "blue" && phone == "Xiaomi_Redme_9"){
-//         document.write("<br><img src=\""+filePhone+"\"  height=\"420\" width=\"320\">");
-//       }else{
-//         alert(phone+" з "+phoneColor+" кольором не існує!!!")
-//       }
-// }
-
-
+/*Price recount*/
+currPhonePrice = currPhone.price * currPhone.color[color].coeffPrice;
+  
+/*Product Information Display*/  
+document.write('<h1>Phone Disc: '+disc+', price: '+currPhonePrice+'</h1>');
+document.write('<br><img src="'+currPhone.color[color].pathFile+'"  height="420" width="320">');
