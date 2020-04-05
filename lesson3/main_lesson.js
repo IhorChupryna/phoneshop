@@ -11,10 +11,12 @@
 */
 //--------------------------------> 1 <--------------------------------//
 function sequence(start, step) {
-  if (start === undefined)
-    start = 0;
-  else
-    start -= step;
+  if(step === undefined)
+  step=1;
+  if(start === undefined)
+  start=0;
+
+  start-=step;
   return function () {
     return start += step;
   }
